@@ -1,0 +1,63 @@
+---
+- hosts: all
+
+  become: yes
+  become_method: sudo
+  remote_user: ahmed
+
+  tasks:
+  - name: Update and upgrade apt packages
+    apt:
+      upgrade: yes
+      update_cache: yes
+      cache_valid_time: 86400 #One day
+
+  - name: install JDK 11
+    apt:
+      name: openjdk-11-jdk
+      state: present
+
+  - name: add tomcat group
+    group:
+      name: tomcat
+
+  - name: add tomcat user
+    user:
+      name: tomcat
+      group: tomcat
+      home: /user/share/tomcat
+      createhome: no
+
+  - name: create /opt/tomcat directory
+    file:
+      path: /opt/tomcat
+      state: directory
+      mode: 0755
+  - name: download
+    get_url:
+      url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.70/bin/apache-tomcat-9.0.70.tar.gz
+      dest: /opt/tomcat
+  - name: unarchive
+    unarchive:
+      src: /opt/tomcat/apache-tomcat-9.0.70.tar.gz
+      dest: /opt/tomcat
+      remote_src: yes
+      extra_opts: [--strip-components=1]
+  - name: Creating service for Apache tomcat.
+    file:
+      path: /etc/systemd/system/tomcat.service
+      state: touch
+      mode: u+rwx,g-rwx,o-x
+
+  - name: download tomcat.conf
+    get_url:
+      url: https://raw.githubusercontent.com/aftab70/Apache_Tomcat/master/tomcat_services
+      dest: /etc/systemd/system/tomcat.service
+  - name: Deploywar
+    copy:
+      src: ~/Test/deploy/sample.war
+      dest: /opt/tomcat/webapps  
+  - name: Deamon reload.
+    command: systemctl daemon-reload
+  - name: Start and enable Tomcat service
+    shell: nohup /opt/tomcat/bin/startup.sh
