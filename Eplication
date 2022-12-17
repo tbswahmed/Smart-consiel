@@ -1,0 +1,16 @@
+-1 prémierement je prépare le fichier hosts en premeire lieu je juste met le localhost 
+pour tester le bon execution de playbook puis j'ajouter la configuration "ansible_connection=docker" 
+pour que je puisse executer le playbook dans le conteneur
+--> alors dans ce playbook tomcat necessite que java soit installer pour fonction correctement
+donc après mis à jour de système le next task ce l'installation de version 11 de java, puis 
+j'ai créer un utilisateur et un groupe pour tomcat, télecharger le fichier zip de tomcat version 9 
+et l'extraire dans l'emplacement préci puis le configure et changer le mode de controle sur le ficher
+de conf et redemare le daemon  
+=> aussi un task pour deployer le war au serveur tomcat 
+==> ce playbook et bien tester est fonction correctement (je peut faire de capture)
+----
+2-concernant le docker j'ai eu un problème de version "jessie" donc j'ai changeé la version à "debian:latest"
+j'ajouter un layer(ligne) pour installer le python pip et python 3 ce à cause d'un problème lors de l'execution 
+de playbook pour la premier fois dans le coteneur et aussi l'installation de "systemctl" pour la commande "systemctl daemon-reload"
+sera excuter correctement dans le contenneur.
+Deplus selon l'ennoncé je monté aussi le dossier deploy dans le contenneur.
