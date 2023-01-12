@@ -10,7 +10,7 @@
     apt:
       upgrade: yes
       update_cache: yes
-      y
+      
 
   - name: install JDK 11
     apt:
