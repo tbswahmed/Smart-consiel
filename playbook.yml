@@ -6,6 +6,11 @@
   gather_facts: True
 
   tasks:
+  - name: Install sudo
+  become: true
+  apt:
+    name: sudo
+    state: present
   - name: install JDK 11
     apt:
       name: openjdk-11-jdk
