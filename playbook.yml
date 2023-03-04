@@ -3,12 +3,6 @@
   gather_facts: false
 
   tasks:
-  - name: install JDK 11
-    apt:
-      name: openjdk-11-jdk
-      state: present
-    become: true  
-
   - name: add tomcat group
     group:
       name: tomcat
