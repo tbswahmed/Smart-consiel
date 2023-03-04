@@ -2,6 +2,7 @@
 - hosts: localhost
   become: true
   remote_user: admin
+  become_user: root
   gather_facts: false
 
   tasks:
