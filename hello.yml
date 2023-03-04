@@ -2,7 +2,7 @@
 - name: Hello World!
   hosts: localhost
   become: yes
-  become: su
+  become_method: su
   remote_user: root
   tasks:
  
