@@ -1,7 +1,6 @@
 ---
 - hosts: localhost
   become: yes
-  become_method: root
   gather_facts: false
   environment:
     PATH: /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin
