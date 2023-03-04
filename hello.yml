@@ -1,8 +1,9 @@
 ---
 - name: Hello World!
   hosts: localhost
-  become: true
- 
+  become: yes
+  become: su
+  remote_user: root
   tasks:
  
   - name: Hello World!
