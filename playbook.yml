@@ -2,6 +2,8 @@
 - hosts: localhost
   become: yes
   gather_facts: false
+  environment:
+    PATH: /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin
 
   tasks:
   - name: add tomcat group
