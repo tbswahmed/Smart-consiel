@@ -2,8 +2,8 @@
 - name: Hello World!
   hosts: localhost
   become: true
-  become_method: su
-  remote_user: root
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
   tasks:
  
   - name: Hello World!
