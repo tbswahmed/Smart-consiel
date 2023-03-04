@@ -2,7 +2,6 @@
 - hosts: localhost
 
   become: yes
-  become_method: sudo
   remote_user: ahmed
   gather_facts: True
 
