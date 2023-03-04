@@ -1,10 +1,123 @@
 ---
 - hosts: localhost
+
   become: yes
   remote_user: root
+
   gather_facts: True
 
   tasks:
+  - name: install JDK 11
+    apt:
+      name: openjdk-11-jdk
+      state: present
+
+  - name: add tomcat group
+    group:
+      name: tomcat
+
+  - name: add tomcat user
+    user:
+      name: tomcat
+      group: tomcat
+      home: /user/share/tomcat
+      createhome: no
+
+  - name: create /opt/tomcat directory
+    file:
+      path: /opt/tomcat
+      state: directory
+      mode: 0755
+  - name: download
+    get_url:
+      url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.73/bin/apache-tomcat-9.0.73.tar.gz
+      dest: /opt/tomcat
+  - name: unarchive
+    unarchive:
+      src: /opt/tomcat/apache-tomcat-9.0.73.tar.gz
+      dest: /opt/tomcat
+      remote_src: yes
+      extra_opts: [--strip-components=1]
+  - name: Creating service for Apache tomcat.
+    file:
+      path: /etc/systemd/system/tomcat.service
+      state: touch
+      mode: u+rwx,g-rwx,o-x
+
+  - name: download tomcat.conf
+    get_url:
+      url: https://raw.githubusercontent.com/aftab70/Apache_Tomcat/master/tomcat_services
+      dest: /etc/systemd/system/tomcat.service
+  - name: Deploywar
+    copy:
+      src: ~/k3s/Test-docker-Ansible/deploy/sample.war
+      dest: /opt/tomcat/webapps
+  - name: Deamon reload.
+    command: systemctl daemon-reload
+  - name: Start and enable Tomcat service
+    shell: nohup /opt/tomcat/bin/startup.sh
+root@minikube:~/k3s/Test-docker-Ansible# vi playbook.yml
+root@minikube:~/k3s/Test-docker-Ansible# root@minikube:~/k3s/Test-docker-Ansible# ansible-playbook -i hosts.yml playbook.yml
+
+PLAY [localhost] *******************************************************************************************************************************************************************************************
+
+TASK [install sudo] ****************************************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [install JDK 11] **************************************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [add tomcat group] ************************************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [add tomcat user] *************************************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [create /opt/tomcat directory] ************************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [download] ********************************************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [unarchive] *******************************************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [Creating service for Apache tomcat.] *****************************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [download tomcat.conf] ********************************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [Deploywar] *******************************************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [Deamon reload.] **************************************************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [Start and enable Tomcat service] *********************************************************************************************************************************************************************
+changed: [localhost]
+
+PLAY RECAP *************************************************************************************************************************************************************************************************
+localhost                  : ok=12   changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+root@minikube:~/k3s/Test-docker-Ansible# ps ax | grep java
+ 489952 pts/1    Sl     0:03 /usr/bin/java -Djava.util.logging.config.file=/opt/tomcat/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /opt/tomcat/bin/bootstrap.jar:/opt/tomcat/bin/tomcat-juli.jar -Dcatalina.base=/opt/tomcat -Dcatalina.home=/opt/tomcat -Djava.io.tmpdir=/opt/tomcat/temp org.apache.catalina.startup.Bootstrap start
+ 490009 pts/1    S+     0:00 grep --color=auto java
+root@minikube:~/k3s/Test-docker-Ansible# kill -9 489952
+root@minikube:~/k3s/Test-docker-Ansible# cat playbook.yml
+---
+- hosts: localhost
+
+  become: true
+  remote_user: root
+
+  gather_facts: false
+
+  tasks:
+  - name: install sudo
+    apt:
+      name: sudo
+      state: present
   - name: install JDK 11
     apt:
       name: openjdk-11-jdk
