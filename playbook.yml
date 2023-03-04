@@ -1,6 +1,6 @@
 ---
 - hosts: localhost
-  beome: true
+  become: true
   remote_user: admin
   gather_facts: false
 
