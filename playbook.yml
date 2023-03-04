@@ -2,16 +2,10 @@
 - hosts: localhost
 
   become: yes
-  remote_user: ubuntu
+  remote_user: root
   gather_facts: True
 
   tasks:
-  - name: Update and upgrade apt packages
-    apt:
-      upgrade: yes
-      update_cache: yes
-      
-
   - name: install JDK 11
     apt:
       name: openjdk-11-jdk
