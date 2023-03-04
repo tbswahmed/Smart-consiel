@@ -1,5 +1,7 @@
 ---
 - hosts: localhost
+  beome: true
+  remote_user: admin
   gather_facts: false
 
   tasks:
