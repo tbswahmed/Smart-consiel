@@ -1,6 +1,8 @@
 ---
 - hosts: localhost
   become: yes
+  become_method: su
+  become_user: admin
   gather_facts: false
 
   tasks:
