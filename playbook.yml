@@ -1,7 +1,5 @@
 ---
 - hosts: localhost
-  become_method: su
-  remote_user: root
   gather_facts: false
 
   tasks:
