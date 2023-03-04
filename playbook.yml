@@ -2,7 +2,7 @@
 - hosts: localhost
   become: yes
   become_method: su
-  become_user: ubuntu
+  become_user: root
   gather_facts: false
 
   tasks:
