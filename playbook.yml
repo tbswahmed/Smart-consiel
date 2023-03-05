@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   become: yes
+  sudo: yes
   gather_facts: false
   environment:
     PATH: /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin
