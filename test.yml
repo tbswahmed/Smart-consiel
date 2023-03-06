@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: minikube
   become: yes
   gather_facts: false
   environment:
