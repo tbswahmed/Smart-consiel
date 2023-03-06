@@ -1,6 +1,6 @@
 ---
 - name: Hello World!
-  hosts: localhost
+  hosts: minikube
   tasks:
  
   - name: Hello World!
