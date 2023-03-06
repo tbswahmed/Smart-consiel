@@ -1,5 +1,5 @@
 ---
-- hosts: minikube
+- hosts: 192.168.50.154
   become: true
 
   
