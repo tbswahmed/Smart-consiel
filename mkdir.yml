@@ -1,7 +1,11 @@
 ---
 - hosts: minikube
   become: true
-- name: create /opt/tomcat directory
+
+  
+  gather_facts: false
+  tasks:
+  - name: create /opt/tomcat directory
     file:
       path: /opt/tomcat
       state: directory
