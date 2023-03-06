@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  become: yes
+  gather_facts: false
+  environment:
+    PATH: /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin
+
+  tasks:
+  - name: add tomcat group
+    group:
+      name: tomcat
+
+  - name: add tomcat user
+    user:
+      name: tomcat
+      group: tomcat
+      home: /user/share/tomcat
+      createhome: no
