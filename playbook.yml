@@ -1,6 +1,6 @@
 ---
 - hosts: localhost
-  become_user: skander
+  become: true
 
   
   gather_facts: false
