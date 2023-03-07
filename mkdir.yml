@@ -1,5 +1,5 @@
 ---
-- hosts: minikube
+- hosts: ubuntu22
   become: true
 
   
