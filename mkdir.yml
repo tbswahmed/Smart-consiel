@@ -1,5 +1,5 @@
 ---
-- hosts: ubuntu22
+- hosts: 10.0.0.1
   become: true
 
   
