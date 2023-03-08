@@ -1,7 +1,5 @@
 ---
-- hosts: all
-  become: true
-  gather_facts: false
+
   tasks:
   - name: create /opt/tomcat directory
     file:
