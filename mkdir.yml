@@ -1,7 +1,7 @@
 ---
-tasks:
+ tasks:
  - name: create /opt/tomcat directory
-    file:
-      path: /opt/test
-      state: directory
-      mode: 0755
+   file:
+     path: /opt/test
+     state: directory
+     mode: 0755
