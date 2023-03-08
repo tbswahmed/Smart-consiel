@@ -1,7 +1,6 @@
 ---
-
-  tasks:
-  - name: create /opt/tomcat directory
+tasks:
+ - name: create /opt/tomcat directory
     file:
       path: /opt/test
       state: directory
