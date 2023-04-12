@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: 10.112.60.53
   become: true
   tasks:
   - name: create /opt/tomcat directory
